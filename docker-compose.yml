@@ -14,6 +14,7 @@ services:
 
   grafana:
     image: "grafana/grafana"
+    user: "${UID}:${GID}"
     ports:
       - "3000:3000"
     volumes:
@@ -25,9 +26,11 @@ services:
 
   loki:
     image: "grafana/loki"
+    user: "${UID}:${GID}"
     ports:
       - "3100:3100"
     volumes:
       - ./loki/config/loki-config.yml:/mnt/config/loki-config.yml
       - ./loki:/loki
+    restart: always
     command: '--config.file=/mnt/config/loki-config.yml'
