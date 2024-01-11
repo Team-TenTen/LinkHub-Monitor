@@ -1,3 +1,4 @@
+sudo git reset --hard
 sudo git pull
 
 export UID=$(id -u)
