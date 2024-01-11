@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: always
+
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/volume:/var/lib/grafana
+    restart: always
+    depends_on:
+      - prometheus
+    privileged: true
+
+  loki:
+    image: "grafana/loki"
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/config/loki-config.yml:/mnt/config/loki-config.yml
+      - ./loki:/loki
+    command: '--config.file=/mnt/config/loki-config.yml'
