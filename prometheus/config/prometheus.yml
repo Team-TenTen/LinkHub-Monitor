@@ -32,6 +32,6 @@ scrape_configs:
   - job_name: "LinkHub_Server"  # 아무거나 적어도 됨
     scheme: http
     metrics_path: '/actuator/prometheus'
-    scrape_interval: 10s
+    scrape_interval: 3600s
     static_configs:
       - targets: ["api.link-hub.site", "54.180.5.36:80"] # //로컬 환경에선: host.docker.internal:8080
